@@ -22,7 +22,8 @@ export class SelectorPageComponent implements OnInit {
   regiones  : string[] = [];
   paises    : PaisesSmall[] = [];
   paisCodigo: Pais[] = [];
-  fronteras : string[] = [];
+  //fronteras : string[] = [];
+  fronteras : PaisesSmall[] = [];
 
 
   //UI
@@ -50,7 +51,8 @@ export class SelectorPageComponent implements OnInit {
     //cuando cambie la region(continente)
     this.miFormulario.get('region')?.valueChanges
       .pipe(
-        tap( ( _ ) => { this.miFormulario.get('pais')?.reset('');
+        tap( ( _ ) => { this.regiones = ['Africa', 'Americas', 'Asia', 'Europe', 'Oceania'];
+                        this.miFormulario.get('pais')?.reset('');
                         this.cargando = true;
                         //this.miFormulario.get('frontera')?.disable();
         } ),
@@ -58,7 +60,7 @@ export class SelectorPageComponent implements OnInit {
       )
       .subscribe( paises => {
         console.log(paises);
-        this.paises = paises;
+        this.paises = paises || [];
         this.cargando = false;
       });
 
@@ -72,11 +74,13 @@ export class SelectorPageComponent implements OnInit {
           //this.miFormulario.get('frontera')?.enable();
           this.cargando = true;
         } ),
-        switchMap( codigo => this.pasisesService.getPaisPorCodigo( codigo ))
+        switchMap( codigo => this.pasisesService.getPaisPorCodigo( codigo )),
+        switchMap( pais => this.pasisesService.getPaisesPorCodigos( pais?.borders! ))
       )
-      .subscribe( pais => {
-        console.log(pais);
-        this.fronteras = pais?.borders || [];
+      .subscribe( paises => {
+        console.log(paises);
+        this.fronteras = paises;
+       // this.fronteras = pais?.borders || [];
         this.cargando = false;
       })
 

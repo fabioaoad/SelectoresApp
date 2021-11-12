@@ -1,8 +1,9 @@
-<h1 class="mt-5">Selectores anidados</h1>
+<h1 class="mt-5 animate__animated animate__wobble">Selectores Anidados</h1>
 <hr>
 
 <form [formGroup]="miFormulario"
-      (ngSubmit)="guardar()">
+      (ngSubmit)="guardar()"
+      class="animate__animated animate__backInUp">
 
 <!--REGIONES-->
   <div class="row mb-3">
@@ -12,7 +13,7 @@
               formControlName="region">
         <option value="">--- Seleccione Continente ---</option>
         <option *ngFor="let region of regiones"
-          [value]="region | lowercase">{{ region }}</option>
+          [value]="region | lowercase ">{{ region }}</option>
       </select>
     </div>
   </div>
@@ -41,14 +42,14 @@
               formControlName="frontera">
         <option value="">--- Seleccione el país fronterizo ---</option>
         <option *ngFor="let frontera of fronteras"
-                [value]="frontera">{{ frontera }}</option>
+                [value]="frontera.alpha3Code">{{ frontera.name }}</option>
       </select>
     </div>
   </div>
 
 
-
-  <div class="row" *ngIf="cargando">
+<!--DIV PARA MOSTRAR EL CARGANDO-->
+  <div class="row animate__animated animate__pulse" *ngIf="cargando">
     <div class="col">
       <div class="alert alert-primary">
         Cargando...
@@ -68,7 +69,9 @@
 
 </form>
 
+<div class="animate__animated animate__fadeInRightBig">
+  <h3>Formulario</h3>
+  <pre>{{ miFormulario.valid }}</pre>
+  <pre>{{ miFormulario.value | json }}</pre>
+</div>
 
-<h3>Formulario</h3>
-<pre>{{ miFormulario.valid }}</pre>
-<pre>{{ miFormulario.value | json }}</pre>

@@ -1,6 +1,7 @@
 export interface PaisesSmall {
   name: Name;
   cca3: string;
+  alpha3Code: string;
 }
 
 export interface Name {
