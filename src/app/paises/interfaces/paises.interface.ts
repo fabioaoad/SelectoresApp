@@ -13,8 +13,6 @@ export interface NativeName {
   official: string;
   common:   string;
 }
-
-
 export interface Pais {
   name:           string;
   topLevelDomain: string[];
@@ -65,7 +63,7 @@ export interface Language {
 export interface RegionalBloc {
   acronym:        string;
   name:           string;
-  otherNames?:    string[];
+  otherNames:     string[];
   otherAcronyms?: string[];
 }
 
